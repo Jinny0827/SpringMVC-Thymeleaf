@@ -4,7 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StreamUtils;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -65,4 +67,18 @@ public class RequestBodyStringController {
 
        return new HttpEntity<>("ok");
     }
+
+    // 매개변수 HttpEntity를 생략할 수 있다.
+    // @RequestBody를 사용
+    // 응답의 HttpEntity도 @ResponseBody로 수정 가능
+
+    @ResponseBody
+    @RequestMapping("/request-body-string-v4")
+    public String requestBodyStringV4(@RequestBody String messageBody) throws IOException {
+
+        log.info("message Body = {}", messageBody);
+
+        return "ok";
+    }
+
 }
