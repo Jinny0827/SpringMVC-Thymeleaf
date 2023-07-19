@@ -1,7 +1,9 @@
 package hello.springmvc.basic.request;
 
+import hello.springmvc.basic.HelloData;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -114,4 +116,31 @@ public class RequestParamController {
         return "ok";
     }
 
+    // ModelAttribute를 사용한다.
+    // 파라미터와 HelloData의 프로퍼티를 매핑해서
+    // 데이터를 입힌다.
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+
+        log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+        // HelloData의 @Data 롬복은
+        // toString도 수행한다.
+        log.info("HelloData = {}", helloData);
+
+        return "ok";
+    }
+
+    //ModelAttribute를 생략할 수 있다.
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+
+        log.info("username = {}, age = {}", helloData.getUsername(), helloData.getAge());
+        // HelloData의 @Data 롬복은
+        // toString도 수행한다.
+        log.info("HelloData = {}", helloData);
+
+        return "ok";
+    }
 }
